@@ -1,13 +1,16 @@
 package ru.bellintegrator.practice.organization.model;
 
 
+import org.hibernate.annotations.Type;
 import ru.bellintegrator.practice.office.model.Office;
-import ru.bellintegrator.practice.user.model.User;
+import ru.bellintegrator.practice.organization.view.OrganizationUpdateView;
+
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.Date;
+
 
 
 @Entity
@@ -16,63 +19,67 @@ public class Organization {
 
 
     @Id
-    @GeneratedValue
-    @Column(name = "Id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Long id;
 
 
     @Version
     private Integer version;
 
-    @Column(name = "name", length = 50, nullable = false)
+
+    @Column(name = "name")
     private String name;
 
 
-    @Column(name = "full_name", length = 50, nullable = false)
+    @Column(name = "full_name")
     private String fullName;
 
-
-    @Column(name = "inn", length = 50, nullable = false)
+    @Column(name = "inn", length = 50)
     private String inn;
 
-
-    @Column(name = "kpp", length = 50, nullable = false)
+    @Column(name = "kpp", length = 50)
     private String kpp;
 
 
-    @Column(name = "address", length = 50, nullable = false)
+    @Column(name = "address", length = 50)
     private String address;
 
-    @Column(name = "phone", length = 50, nullable = false)
+
+    @Column(name = "phone", length = 50)
     private String phone;
 
 
-    @OneToMany(cascade=CascadeType.ALL)
-    @JoinColumn(name="ID")
-    private Set<User> users;
+    @Type(type = "true_false")
+    @NotNull(message = "NOT_NULL")
+    @Column(name = "isActive", nullable = false)
+    private Boolean isActive;
 
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "organization", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Office> offices = new HashSet<>();
 
-    @OneToMany(cascade=CascadeType.ALL)
-    @JoinColumn(name="ID")
-    private Set<Office> offices;
 
     public Organization() {
     }
 
-    public Organization(String name, String fullName, String inn, String kpp, String address, String phone,Set<User> users, Set<Office> offices) {
+    public Organization(String name, String fullName, String inn, String kpp, String address,
+                        String phone, Boolean isActive) {
         this.name = name;
         this.fullName = fullName;
         this.inn = inn;
         this.kpp = kpp;
         this.address = address;
         this.phone = phone;
-        this.users = users;
-        this.offices = offices;
+        this.isActive = isActive;
     }
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -123,12 +130,12 @@ public class Organization {
         this.phone = phone;
     }
 
-    public Set<User> getUsers() {
-        return users;
+    public Boolean getActive() {
+        return isActive;
     }
 
-    public void setUsers(Set<User> users) {
-        this.users = users;
+    public void setActive(Boolean active) {
+        isActive = active;
     }
 
     public Set<Office> getOffices() {
@@ -137,5 +144,15 @@ public class Organization {
 
     public void setOffices(Set<Office> offices) {
         this.offices = offices;
+    }
+
+    public void update(OrganizationUpdateView update) {
+        this.name = update.getName();
+        this.fullName = update.getFullName();
+        this.inn = update.getInn();
+        this.kpp = update.getKpp();
+        this.address = update.getAddress();
+        this.phone = update.getPhone();
+        this.isActive = update.getActive();
     }
 }

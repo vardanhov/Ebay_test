@@ -1,52 +1,48 @@
 package ru.bellintegrator.practice.organization.dao;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+
 import ru.bellintegrator.practice.organization.model.Organization;
+import ru.bellintegrator.practice.organization.view.OrganizationUpdateView;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
+
 import java.util.List;
 
 public class OrganizationDaoImpl implements OrganizationDao {
     private final EntityManager em;
 
-    @Autowired
-    public OrganizationDaoImpl( EntityManager em) {
+    public OrganizationDaoImpl(EntityManager em) {
         this.em = em;
     }
 
+
+
     @Override
-    public List<Organization> all() {
-        TypedQuery<Organization> query = em.createQuery("SELECT p FROM Organization p", Organization.class);
+    public List<Organization> allOrganization() {
+        TypedQuery<Organization> query = em.createQuery("SELECT o FROM Organization o", Organization.class);
         return query.getResultList();
-
     }
 
-    @Override
-    public Organization loadById(Long id) {
-        return null;
-    }
 
     @Override
-    public Organization updateOrganization(Organization organization) {
-        return null;
+    public Organization findOrganizationById(Long id) {
+
+        return em.find(Organization.class, id);
     }
+
 
     @Override
     public void save(Organization organization) {
         em.persist(organization);
     }
-    private CriteriaQuery<Organization> buildCriteria(String name) {
-        CriteriaBuilder builder = em.getCriteriaBuilder();
-        CriteriaQuery<Organization> criteria = builder.createQuery(Organization.class);
 
-        Root<Organization> organization = criteria.from(Organization.class);
-        criteria.where(builder.equal(organization.get("name"), name));
 
-        return criteria;
+    @Override
+    public void updateOrganization(OrganizationUpdateView update) {
+        Organization organization = em.find(Organization.class, update.getId());
+
+        organization.update(update);
+        em.merge(organization);
     }
 }

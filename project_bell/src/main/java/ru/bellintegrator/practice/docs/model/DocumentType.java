@@ -1,41 +1,39 @@
 package ru.bellintegrator.practice.docs.model;
 
-import ru.bellintegrator.practice.user.model.User;
+
 
 import javax.persistence.*;
-import java.util.Set;
+
 
 @Entity
-@Table(name = "Office")
-public class Docs {
+@Table(name = "Doc_Type")
+public class DocumentType {
 
     @Id
     @GeneratedValue
-    @Column(name = "Id")
+    @Column(name = "id")
     private Long id;
 
     @Version
     private Integer version;
 
 
-    @Column(name = "name", length = 50, nullable = false)
+    @Column(name = "name")
     private String name;
 
 
-    @Column(name = "code", length = 50, nullable = false)
+    @Column(name = "code")
     private String code;
 
-    @OneToMany(cascade=CascadeType.ALL)
-    @JoinColumn(name="ID")
-    private Set<User> users;
 
-    public Docs() {
+
+    public DocumentType() {
     }
-    public Docs(String name, String code, Set<User> users) {
+    public DocumentType(String name, String code) {
 
         this.name = name;
         this.code = code;
-        this.users = users;
+
     }
 
     public Long getId() {
@@ -59,11 +57,5 @@ public class Docs {
         this.code = code;
     }
 
-    public Set<User> getUsers() {
-        return users;
-    }
 
-    public void setUsers(Set<User> users) {
-        this.users = users;
-    }
 }

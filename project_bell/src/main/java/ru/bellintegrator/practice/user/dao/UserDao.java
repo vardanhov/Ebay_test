@@ -1,40 +1,20 @@
 package ru.bellintegrator.practice.user.dao;
 
 import ru.bellintegrator.practice.user.model.User;
+import ru.bellintegrator.practice.user.view.UserUpdateView;
 
 import java.util.List;
 
-/**
- * DAO для работы с Person
- */
+
 public interface UserDao {
-    /**
-     * Получить все объекты Person
-     *
-     * @return
-     */
-    List<User> all();
+    List<User> allUser();
 
-    /**
-     * Получить Person по идентификатору
-     *
-     * @param id
-     * @return
-     */
-    User loadById(Long id);
 
-    /**
-     * Получить Person по имени
-     *
-     * @param name
-     * @return
-     */
-    User loadByName(String name);
+    User findUserById(Long id);
 
-    /**
-     * Сохранить Person
-     *
-     * @param user
-     */
+
     void save(User user);
+
+    void update(UserUpdateView update);
+
 }

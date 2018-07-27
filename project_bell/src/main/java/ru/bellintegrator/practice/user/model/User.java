@@ -1,25 +1,26 @@
 package ru.bellintegrator.practice.user.model;
 
 
+import org.hibernate.annotations.Type;
+import ru.bellintegrator.practice.countries.model.Country;
+import ru.bellintegrator.practice.docs.model.Document;
+
 import ru.bellintegrator.practice.office.model.Office;
-import ru.bellintegrator.practice.organization.model.Organization;
+import ru.bellintegrator.practice.user.view.UserUpdateView;
 
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Date;
+import javax.validation.constraints.NotNull;
 
-/**
- * Человек
- */
+
+
 @Entity
-@Table(name = "USER")
+@Table(name = "user")
 public class User {
 
     @Id
     @GeneratedValue
-    @Column(name = "Id")
+    @Column(name = "id")
     private Long id;
 
     @Version
@@ -41,58 +42,71 @@ public class User {
     @Column(name = "phone", length = 50, nullable = false)
     private String phone;
 
-    @Column(name = "doc_code", length = 50, nullable = false)
-    private String docCode;
+    @Type(type = "true_false")
+    @NotNull(message = "NOT_NULL")
+    @Column(name = "isIdentified", nullable = false)
+    private Boolean isIdentified;
 
-    @Column(name = "doc_name", length = 50, nullable = false)
-    private String docName;
+    @Column(name = "active")
+    private Boolean isActive;
 
-    @Column(name = "doc_number", length = 50, nullable = false)
-    private String docNumber;
+    @OneToOne(mappedBy = "employee", fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
+    private Document document;
 
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "country_id")
+    private Country country;
 
-    @Column(name = "doc_date", length = 50, nullable = false)
-    private Date docDate;
-
-    @Column(name = "citizenship_name", length = 50, nullable = false)
-    private String citizenshipName;
-
-    @Column(name = "citizenship_code", length = 50, nullable = false)
-    private String citizenshipCode;
-
-
-
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "office_id")
     private Office office;
 
-    @ManyToOne
-    private Organization organization;
 
 
     public User() {
 
     }
-    public User(String firstName, String secondName, String middleName, String position, String phone, String docCode, String docName, String docNumber, Date docDate, String citizenshipName, String citizenshipCode,Office office, Organization organization) {
+    public User(Document document, Country country, Office office, String firstName, String secondName,
+                String middleName, String position, String phone, Boolean isIdentified) {
+        this.document = document;
+        this.country = country;
+        this.office = office;
         this.firstName = firstName;
         this.secondName = secondName;
         this.middleName = middleName;
         this.position = position;
         this.phone = phone;
-        this.docCode = docCode;
-        this.docName = docName;
-        this.docNumber = docNumber;
-        this.docDate = docDate;
-        this.citizenshipName = citizenshipName;
-        this.citizenshipCode = citizenshipCode;
-        this.office = office;
-        this.organization = organization;
+        this.isIdentified = isIdentified;
     }
 
 
 
     public Long getId() {
         return id;
+    }
+
+    public Document getDocument() {
+        return document;
+    }
+
+    public void setDocument(Document document) {
+        this.document = document;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
+    }
+
+    public Office getOffice() {
+        return office;
+    }
+
+    public void setOffice(Office office) {
+        this.office = office;
     }
 
     public String getFirstName() {
@@ -135,60 +149,22 @@ public class User {
         this.phone = phone;
     }
 
-    public String getDocCode() {
-        return docCode;
+    public Boolean getIdentified() {
+        return isIdentified;
     }
 
-    public void setDocCode(String docCode) {
-        this.docCode = docCode;
+    public void setIdentified(Boolean identified) {
+        isIdentified = identified;
     }
 
-    public String getDocName() {
-        return docName;
+    public void update(UserUpdateView update,  Country country) {
+        this.firstName = update.getFirstName();
+        this.secondName = update.getSecondName();
+        this.middleName = update.getMiddleName();
+        this.position = update.getPosition();
+        this.phone = update.getPhone();
+        this.country = country;
+        this.isIdentified = update.getIdentified();
     }
-
-    public void setDocName(String docName) {
-        this.docName = docName;
-    }
-
-    public String getDocNumber() {
-        return docNumber;
-    }
-
-    public void setDocNumber(String docNumber) {
-        this.docNumber = docNumber;
-    }
-
-    public Date getDocDate() {
-        return docDate;
-    }
-
-    public void setDocDate(Date docDate) {
-        this.docDate = docDate;
-    }
-
-    public String getCitizenshipName() {
-        return citizenshipName;
-    }
-
-    public void setCitizenshipName(String citizenshipName) {
-        this.citizenshipName = citizenshipName;
-    }
-
-    public String getCitizenshipCode() {
-        return citizenshipCode;
-    }
-
-    public void setCitizenshipCode(String citizenshipCode) {
-        this.citizenshipCode = citizenshipCode;
-    }
-    public Office getOffice() {
-        return office;
-    }
-
-    public void setOffice(Office office) {
-        this.office = office;
-    }
-
 
 }

@@ -1,11 +1,11 @@
-INSERT INTO USER (id, version, address) VALUES (1, 0, 'ул.Цюрупы, 16');
+INSERT INTO Doc_Type (id, version, code, name) VALUES (1, 0, 010, 'Паспорт иностранного гражданина');
 
-INSERT INTO House (id, version, address) VALUES (2, 0, 'ул.Лунина, 7');
+INSERT INTO Doc_Type (id, version, code, name) VALUES (2, 0, 013, 'Удостоверение беженца');
 
-INSERT INTO Person (id, version, first_name, age) VALUES (1, 0, 'Пётр', 20);
+INSERT INTO Doc_Type (id, version, code, name) VALUES (3, 0, 021,'Паспорт гражданина Российской Федерации');
 
-INSERT INTO Person (id, version, first_name, age) VALUES (2, 0, 'John', 25);
+INSERT INTO Country (id, version, code, name) VALUES (1, 0, 007, 'Россия');
 
-INSERT INTO Person_House (person_id, house_id) VALUES (1, 1);
+INSERT INTO Country (id, version, code, name) VALUES (2, 0, 374, 'Армения');
 
-INSERT INTO Person_House (person_id, house_id) VALUES (1, 2);
+INSERT INTO Country (id, version, code, name) VALUES (3, 0, 375, 'Белоруссия');

@@ -2,73 +2,54 @@ package ru.bellintegrator.practice.user.dao;
 
 
 
+import ru.bellintegrator.practice.countries.model.Country;
+import ru.bellintegrator.practice.docs.model.DocumentType;
 import ru.bellintegrator.practice.user.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import ru.bellintegrator.practice.user.view.UserUpdateView;
+
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import java.util.List;
 
-/**
- * {@inheritDoc}
- */
+
 @Repository
 public class UserDaoImpl implements UserDao {
 
     private final EntityManager em;
 
-    @Autowired
     public UserDaoImpl(EntityManager em) {
         this.em = em;
     }
+Country country;
 
-    /**
-     * {@inheritDoc}
-     */
+
     @Override
-    public List<User> all() {
-        TypedQuery<User> query = em.createQuery("SELECT p FROM User p", User.class);
+    public List<User> allUser() {
+        TypedQuery<User> query = em.createQuery("SELECT u FROM User u", User.class);
         return query.getResultList();
     }
 
-    /**
-     * {@inheritDoc}
-     */
+
     @Override
-    public User loadById(Long id) {
+    public User findUserById(Long id) {
 
         return em.find(User.class, id);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public User loadByName(String name) {
-        CriteriaQuery<User> criteria = buildCriteria(name);
-        TypedQuery<User> query = em.createQuery(criteria);
-        return query.getSingleResult();
-    }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void save(User user) {
-
         em.persist(user);
     }
 
-    private CriteriaQuery<User> buildCriteria(String name) {
-        CriteriaBuilder builder = em.getCriteriaBuilder();
-        CriteriaQuery<User> criteria = builder.createQuery(User.class);
 
-        Root<User> user = criteria.from(User.class);
-        criteria.where(builder.equal(user.get("name"), name));
+    @Override
+    public void update(UserUpdateView update) {
+        User user = em.find(User.class, update.getId());
 
-        return criteria;
+        user.update(update,  country);
+        em.merge(user);
     }
 }

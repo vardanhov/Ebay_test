@@ -1,13 +1,17 @@
 package ru.bellintegrator.practice.organization.service;
 
-import ru.bellintegrator.practice.organization.view.OrganizationView;
-import java.util.List;
+import ru.bellintegrator.practice.organization.view.OrganizationSaveView;
+import ru.bellintegrator.practice.organization.view.OrganizationUpdateView;
+
 
 public interface OrganizationService {
 
 
-    void add(OrganizationView organization);
 
-    List<OrganizationView> organizations();
+    void saveOrganization(OrganizationSaveView organizationSaveView);
+
+
+
+    OrganizationUpdateView getOrganizationById(Long id);
 
 }
