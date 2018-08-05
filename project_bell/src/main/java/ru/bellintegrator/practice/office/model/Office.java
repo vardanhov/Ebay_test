@@ -1,10 +1,8 @@
 package ru.bellintegrator.practice.office.model;
 
 
-import ru.bellintegrator.practice.office.view.OfficeUpdateView;
 import ru.bellintegrator.practice.organization.model.Organization;
 import ru.bellintegrator.practice.user.model.User;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -15,7 +13,7 @@ public class Office {
 
     @Id
     @GeneratedValue
-    @Column(name = "Id")
+    @Column(name = "id")
     private Long id;
 
     @Version
@@ -25,8 +23,11 @@ public class Office {
     @Column(name = "name", length = 50)
     private String name;
 
+
+
     @Column(name = "address", length = 50)
     private String address;
+
 
     @Column(name = "phone", length = 18)
     private String phone;
@@ -36,22 +37,16 @@ public class Office {
     private Boolean isActive;
 
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "organization_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "org_id")
     private Organization organization;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "office", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<User> users;
+    private List<User> user;
 
     public Office() {
     }
 
-    public Office(String address, String name, String phone, Boolean isActive) {
-        this.address = address;
-        this.name = name;
-        this.phone = phone;
-        this.isActive = isActive;
-    }
 
     public Long getId() {
         return id;
@@ -97,18 +92,21 @@ public class Office {
         isActive = active;
     }
 
-    public List<User> getUsers() {
-        return users;
+    public List<User> getUser() {
+        return user;
     }
 
-    public void setUsers(List<User> users) {
-        this.users = users;
+    public void setUser(List<User> user) {
+        this.user = user;
     }
 
-    public void update(OfficeUpdateView update) {
-        this.name = update.getName();
-        this.address = update.getAddress();
-        this.phone = update.getPhone();
-        this.isActive = update.getActive();
+    public void addUser(User user) {
+        getUser().add(user);
+        user.setOffice(this);
+    }
+
+    public void removeUser(User user) {
+        getUser().remove(user);
+        user.setOffice(null);
     }
 }

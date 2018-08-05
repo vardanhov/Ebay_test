@@ -1,20 +1,50 @@
 package ru.bellintegrator.practice.user.dao;
 
 import ru.bellintegrator.practice.user.model.User;
-import ru.bellintegrator.practice.user.view.UserUpdateView;
-
+import ru.bellintegrator.practice.user.view.UserView;
 import java.util.List;
 
 
 public interface UserDao {
-    List<User> allUser();
+
+    /**
+     * User list
+     *
+     *
+     */
+    List<User> filter(UserView userView);
 
 
-    User findUserById(Long id);
+    /**
+     * Get User by id
+     *
+     *
+     */
+    UserView getById(Long id);
 
 
-    void save(User user);
+    /**
+     * Save User
+     *
+     *
+     */
+    void save(UserView view);
 
-    void update(UserUpdateView update);
+
+    /**
+     * Update User
+     *
+     *
+     */
+    void update(UserView update);
+
+
+
+    /**
+     * Delete User
+     *
+     *
+     */
+    void delete(Long id);
 
 }

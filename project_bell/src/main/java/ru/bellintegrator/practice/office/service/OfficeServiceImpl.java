@@ -6,9 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.bellintegrator.practice.office.dao.OfficeDao;
 import ru.bellintegrator.practice.office.model.Office;
-import ru.bellintegrator.practice.office.view.OfficeSaveView;
 import ru.bellintegrator.practice.office.view.OfficeView;
-
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.List;
 
 
 @Service
@@ -24,29 +25,74 @@ public class OfficeServiceImpl implements OfficeService {
         this.dao = dao;
     }
 
+    /**
+     * Save Office
+     *
+     *
+     */
     @Override
-    public OfficeView getOfficeById(Long id) {
-        Office office = dao.findOfficeById(id);
-        OfficeView officeView = new OfficeView();
-        officeView.id = office.getId();
-        officeView.name = office.getName();
-        officeView.address = office.getAddress();
-        officeView.phone = office.getPhone();
-        officeView.isActive = office.getActive();
-        return officeView;
+    public void save(OfficeView view) {
+        dao.save(view);
     }
 
 
+    /**
+     * Get Office by id
+     *
+     *
+     */
     @Override
-    public void saveOffice(OfficeSaveView officeSaveView) {
-        Office office = new Office();
-        office.setName(officeSaveView.name);
-        office.setAddress(officeSaveView.address);
-        office.setPhone(officeSaveView.phone);
-        office.setActive(officeSaveView.isActive);
-        dao.save(office);
+    public OfficeView getById(Long id) {
+
+        return dao.getById(id);
+    }
+
+    /**
+     * Update Office
+     *
+     *
+     */
+    @Override
+    public void update(OfficeView update) {
+        dao.update(update);
 
     }
 
+    /**
+     * Delete Office
+     *
+     *
+     */
+    @Override
+    public void delete(Long id) {
+        dao.delete(id);
+    }
 
+
+    /**
+     * Offoce list
+     *
+     *
+     */
+    @Override
+    public List<OfficeView> list(OfficeView office) {
+
+
+        List<Office> all = dao.filter(office.getId(), office.getName(), office.getPhone(),office.getActive());
+
+        Function<Office, OfficeView> mapOffice = p -> {
+            OfficeView view = new OfficeView();
+            view.setId(p.getId());
+            view.setName(p.getName());
+            view.setActive(p.getActive());
+
+            log.info(view.toString());
+
+            return view;
+        };
+
+        return all.stream()
+                .map(mapOffice)
+                .collect(Collectors.toList());
+    }
 }

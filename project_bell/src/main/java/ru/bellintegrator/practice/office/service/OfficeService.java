@@ -1,19 +1,45 @@
 package ru.bellintegrator.practice.office.service;
 
 
-import ru.bellintegrator.practice.office.view.OfficeSaveView;
-import ru.bellintegrator.practice.office.view.OfficeView;
 
+import ru.bellintegrator.practice.office.view.OfficeView;
+import java.util.List;
 
 
 public interface OfficeService {
 
+    /**
+     * Offoce list
+     *
+     *
+     */
+    List<OfficeView> list(OfficeView officeView);
 
+    /**
+     * Get Office by id
+     *
+     *
+     */
+    OfficeView getById(Long id);
 
+    /**
+     * Update Office
+     *
+     *
+     */
+    void update(OfficeView update);
 
-    void saveOffice(OfficeSaveView officeSaveView);
+    /**
+     * Save Office
+     *
+     *
+     */
+    void save(OfficeView view);
 
-
-
-    OfficeView getOfficeById(Long id);
+    /**
+     * Delete Office
+     *
+     *
+     */
+    void delete(Long id);
 }

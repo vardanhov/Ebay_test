@@ -1,7 +1,5 @@
 package ru.bellintegrator.practice.docs.model;
 
-
-
 import javax.persistence.*;
 
 

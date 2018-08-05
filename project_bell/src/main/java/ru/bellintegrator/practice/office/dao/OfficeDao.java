@@ -2,19 +2,46 @@ package ru.bellintegrator.practice.office.dao;
 
 
 import ru.bellintegrator.practice.office.model.Office;
-import ru.bellintegrator.practice.office.view.OfficeUpdateView;
+import ru.bellintegrator.practice.office.view.OfficeView;
 import java.util.List;
 
 
 public interface OfficeDao {
 
-    List<Office> allOffice();
+
+    /**
+     * Offoce list
+     *
+     *
+     */
+    List<Office> filter(Long orgId, String name,String phone, Boolean isActive);
+
+    /**
+     * Get Office by id
+     *
+     *
+     */
+    OfficeView getById(Long id);
 
 
-    Office findOfficeById(Long id);
+    /**
+     * Save Office
+     *
+     *
+     */
+    void save(OfficeView view);
 
+    /**
+     * Update Office
+     *
+     *
+     */
+    void update(OfficeView update);
 
-    void save(Office office);
-
-    void updateOffice(OfficeUpdateView update);
-    }
+    /**
+     * Delete Office
+     *
+     *
+     */
+    void delete(Long id);
+}

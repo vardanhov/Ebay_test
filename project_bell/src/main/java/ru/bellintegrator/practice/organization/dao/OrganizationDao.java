@@ -1,21 +1,50 @@
 package ru.bellintegrator.practice.organization.dao;
-import ru.bellintegrator.practice.organization.model.Organization;
-import ru.bellintegrator.practice.organization.view.OrganizationUpdateView;
 
+import ru.bellintegrator.practice.organization.model.Organization;
+import ru.bellintegrator.practice.organization.view.OrganizationView;
 import java.util.List;
 
 
 public interface OrganizationDao {
 
 
-    List<Organization> allOrganization();
+    /**
+     * Organizatin list
+     *
+     *
+     */
+    List<Organization> filter(String name,String inn, Boolean isActive);
 
 
-    Organization findOrganizationById(Long id);
+    /**
+     * Get Organization by id
+     *
+     *
+     */
+    OrganizationView getById(Long id);
 
 
-    void save(Organization organization);
+    /**
+     * Save Organization
+     *
+     *
+     */
+    void save(OrganizationView view);
 
-    void updateOrganization(OrganizationUpdateView update);
+
+    /**
+     * Update Organization
+     *
+     *
+     */
+    void update(OrganizationView update);
+
+
+    /**
+     * Delete Organization
+     *
+     *
+     */
+    void delete(Long id);
 
 }

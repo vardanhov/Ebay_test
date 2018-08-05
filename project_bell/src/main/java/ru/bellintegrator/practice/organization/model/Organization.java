@@ -1,15 +1,8 @@
 package ru.bellintegrator.practice.organization.model;
-
-
-import org.hibernate.annotations.Type;
 import ru.bellintegrator.practice.office.model.Office;
-import ru.bellintegrator.practice.organization.view.OrganizationUpdateView;
-
-
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
+
 
 
 
@@ -35,8 +28,10 @@ public class Organization {
     @Column(name = "full_name")
     private String fullName;
 
+
     @Column(name = "inn", length = 50)
     private String inn;
+
 
     @Column(name = "kpp", length = 50)
     private String kpp;
@@ -50,29 +45,16 @@ public class Organization {
     private String phone;
 
 
-    @Type(type = "true_false")
-    @NotNull(message = "NOT_NULL")
+
     @Column(name = "isActive", nullable = false)
     private Boolean isActive;
 
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "organization", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Office> offices = new HashSet<>();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "organization", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Office> offices;
 
 
-    public Organization() {
-    }
 
-    public Organization(String name, String fullName, String inn, String kpp, String address,
-                        String phone, Boolean isActive) {
-        this.name = name;
-        this.fullName = fullName;
-        this.inn = inn;
-        this.kpp = kpp;
-        this.address = address;
-        this.phone = phone;
-        this.isActive = isActive;
-    }
 
     public Long getId() {
         return id;
@@ -138,21 +120,23 @@ public class Organization {
         isActive = active;
     }
 
-    public Set<Office> getOffices() {
+
+    public List<Office> getOffices() {
         return offices;
     }
 
-    public void setOffices(Set<Office> offices) {
+    public void setOffices(List<Office> offices) {
         this.offices = offices;
     }
 
-    public void update(OrganizationUpdateView update) {
-        this.name = update.getName();
-        this.fullName = update.getFullName();
-        this.inn = update.getInn();
-        this.kpp = update.getKpp();
-        this.address = update.getAddress();
-        this.phone = update.getPhone();
-        this.isActive = update.getActive();
+    public void addOffice(Office office) {
+        getOffices().add(office);
+        office.setOrganization(this);
     }
+
+    public void removeOffice(Office office) {
+        getOffices().remove(office);
+        office.setOrganization(null);
+    }
+
 }

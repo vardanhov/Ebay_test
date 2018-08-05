@@ -1,8 +1,8 @@
 package ru.bellintegrator.practice.docs.model;
 
 import ru.bellintegrator.practice.user.model.User;
-
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "Document")
@@ -19,7 +19,7 @@ public class Document {
     private String number;
 
     @Column(name = "date")
-    private String date;
+    private Date date;
 
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -37,7 +37,7 @@ public class Document {
     public Document() {
     }
 
-    public Document(DocumentType documentType, String number, String date) {
+    public Document(DocumentType documentType, String number, Date date) {
         this.documentType = documentType;
         this.number = number;
         this.date = date;
@@ -63,11 +63,11 @@ public class Document {
         this.number = number;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

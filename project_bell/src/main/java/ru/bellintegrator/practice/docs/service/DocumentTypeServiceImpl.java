@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import ru.bellintegrator.practice.docs.dao.DocumentTypeDao;
 import ru.bellintegrator.practice.docs.model.DocumentType;
 import ru.bellintegrator.practice.docs.view.DocumentTypeView;
-
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.function.Function;
@@ -28,18 +27,12 @@ import java.util.stream.Collectors;
             this.docTypeDao = docTypeDao;
         }
 
-//        @Override
-//        @Transactional
-//        public List<DocumentTypeView> allDocumentType() {
-//            List<DocumentType> documentTypes = docTypeDao.findAll();
-//            Function<DocumentType, DocumentTypeView> mapDocumentType = d -> {
-//                DocumentTypeView documentTypeView = new DocumentTypeView();
-//                documentTypeView.setName (d.getName());
-//                documentTypeView.setCode(d.getCode());
-//                return documentTypeView;
-//            };
-//            return documentTypes.stream().map(mapDocumentType).collect(Collectors.toList());
-//        }
+
+        /**
+         * List of DocumentTypes
+         *
+         *
+         */
 
         @Override
         @Transactional

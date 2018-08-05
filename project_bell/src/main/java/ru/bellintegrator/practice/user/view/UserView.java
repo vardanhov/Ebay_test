@@ -1,63 +1,163 @@
 package ru.bellintegrator.practice.user.view;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserView {
+    @ApiModelProperty(hidden = true)
+
+    private Long id;
+
+    private Long officeId;
+
+    private String firstName;
 
 
-    public long id;
+    private String secondName;
 
 
-    public String firstName;
+    private String middleName;
 
 
-    public String secondName;
+    private String position;
 
 
-    public String middleName;
+    private String phone;
 
 
-    public String position;
+    private String docName;
+
+    private String docCode;
 
 
-    public String phone;
+    private String docNumber;
 
 
-    public String docName;
+    private Date docDate;
 
 
-    public String docNumber;
+    private String citizenshipName;
 
 
-    public String docDate;
+    private String citizenshipCode;
 
 
-    public String citizenshipName;
-
-
-    public String citizenshipCode;
-
-
-    public boolean isIdentified;
+    private boolean isIdentified;
 
     public UserView() {
     }
 
-    public UserView(long id, String firstName, String secondName, String middleName, String position,
-                        String phone, String docName, String docNumber, String docDate, String citizenshipName,
-                        String citizenshipCode, boolean isIdentified) {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getOfficeId() {
+        return officeId;
+    }
+
+    public void setOfficeId(Long officeId) {
+        this.officeId = officeId;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public String getSecondName() {
+        return secondName;
+    }
+
+    public void setSecondName(String secondName) {
         this.secondName = secondName;
+    }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
         this.middleName = middleName;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
         this.position = position;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getDocName() {
+        return docName;
+    }
+
+    public void setDocName(String docName) {
         this.docName = docName;
+    }
+
+    public String getDocCode() {
+        return docCode;
+    }
+
+    public void setDocCode(String docCode) {
+        this.docCode = docCode;
+    }
+
+    public String getDocNumber() {
+        return docNumber;
+    }
+
+    public void setDocNumber(String docNumber) {
         this.docNumber = docNumber;
+    }
+
+    public Date getDocDate() {
+        return docDate;
+    }
+
+    public void setDocDate(Date docDate) {
         this.docDate = docDate;
+    }
+
+    public String getCitizenshipName() {
+        return citizenshipName;
+    }
+
+    public void setCitizenshipName(String citizenshipName) {
         this.citizenshipName = citizenshipName;
+    }
+
+    public String getCitizenshipCode() {
+        return citizenshipCode;
+    }
+
+    public void setCitizenshipCode(String citizenshipCode) {
         this.citizenshipCode = citizenshipCode;
-        this.isIdentified = isIdentified;
+    }
+
+    public boolean isIdentified() {
+        return isIdentified;
+    }
+
+    public void setIdentified(boolean identified) {
+        isIdentified = identified;
     }
 }

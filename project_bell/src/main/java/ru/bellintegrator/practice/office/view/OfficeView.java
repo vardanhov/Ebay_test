@@ -2,35 +2,75 @@ package ru.bellintegrator.practice.office.view;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import io.swagger.annotations.ApiModelProperty;
 
 
-
-
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class OfficeView {
+    @ApiModelProperty(hidden = true)
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public long id;
+    private Long id;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String name;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String address;
+    private Long orgId;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String phone;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public boolean isActive;
+    private String name;
 
-    public OfficeView() {
+
+    private String address;
+
+
+    private String phone;
+
+
+    private boolean isActive;
+
+    public long getId() {
+        return id;
     }
 
-    public OfficeView(long id, String name, String address, String phone, boolean isActive) {
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getOrgId() {
+        return orgId;
+    }
+
+    public void setOrgId(Long orgId) {
+        this.orgId = orgId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
         this.name = name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
         this.phone = phone;
-        this.isActive = isActive;
+    }
+
+    public boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 }

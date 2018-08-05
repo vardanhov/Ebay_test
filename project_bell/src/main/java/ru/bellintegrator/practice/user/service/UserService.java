@@ -1,14 +1,50 @@
 package ru.bellintegrator.practice.user.service;
 
-import ru.bellintegrator.practice.user.view.UserSaveView;
-
 import ru.bellintegrator.practice.user.view.UserView;
+import java.util.List;
 
 
 public interface UserService {
 
-    UserView getUserById(Long id);
 
 
-    void save(UserSaveView userSaveView);
+    /**
+     * User list
+     *
+     *
+     */
+
+    List<UserView> list();
+
+
+    /**
+     * Get User by id
+     *
+     *
+     */
+    UserView getById(Long id);
+
+
+    /**
+     * Update User
+     *
+     *
+     */
+    void update(UserView update);
+
+
+    /**
+     * Save User
+     *
+     *
+     */
+    void save(UserView view);
+
+
+    /**
+     * Delete User
+     *
+     *
+     */
+    void delete(Long id);
 }

@@ -27,6 +27,12 @@ public class CountryServiceImpl implements CountryService {
         this.dao = dao;
     }
 
+
+    /**
+     * List of Countries
+     *
+     *
+     */
     @Override
     @Transactional(readOnly = true)
     public Map<String, List<CountryView>> countries() {

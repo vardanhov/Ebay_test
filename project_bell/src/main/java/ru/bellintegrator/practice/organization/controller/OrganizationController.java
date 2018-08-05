@@ -1,16 +1,14 @@
 package ru.bellintegrator.practice.organization.controller;
 
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import org.springframework.web.bind.annotation.PathVariable;
 import ru.bellintegrator.practice.organization.service.OrganizationService;
-import ru.bellintegrator.practice.organization.view.OrganizationSaveView;
-import ru.bellintegrator.practice.organization.view.OrganizationUpdateView;
-
+import ru.bellintegrator.practice.organization.view.OrganizationView;
+import java.util.List;
 
 
 @RestController
@@ -26,15 +24,67 @@ public class OrganizationController {
     }
 
 
-    @ApiOperation(value = "findOrganizationById", nickname = "findOrganizationById", httpMethod = "GET")
-    @PostMapping("/{id}")
-    public OrganizationUpdateView organization(@PathVariable("id") Long id) {
-        return organizationService.getOrganizationById(id);
+    @ApiOperation(value = "getById", nickname = "getById", httpMethod = "GET")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = String.class),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Failure")})
+    @GetMapping("/{id}")
+    public OrganizationView organization(@RequestBody Long id) {
+        return organizationService.getById(id);
     }
 
+
+
     @ApiOperation(value = "saveOrganization", nickname = "saveOrganization", httpMethod = "POST")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = String.class),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Failure")})
+
     @PostMapping("/save")
-    public void save(OrganizationSaveView saveData) {
-        organizationService.saveOrganization(saveData);
+    public void save(@RequestBody OrganizationView saveData) {
+        organizationService.save(saveData);
     }
+
+
+
+
+    @ApiOperation(value = "updateOrganization", nickname = "updateOrganization", httpMethod = "POST")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = String.class),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Failure")})
+
+    @PostMapping("/update")
+    public void update(@RequestBody OrganizationView updateData) {
+        organizationService.update(updateData);
+    }
+
+
+
+    @ApiOperation(value = "deleteOrganization", nickname = "deleteOrganization", httpMethod = "POST")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = String.class),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Failure")})
+
+    @PostMapping("/delete")
+    public void delete(@RequestBody Long id) {
+        organizationService.delete(id);
+    }
+
+
+
+    @ApiOperation(value = "getList", nickname = "getList", httpMethod = "POST")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = String.class),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Failure")})
+
+    @PostMapping("/list")
+    public List<OrganizationView> list(@RequestBody OrganizationView organizationView) {
+        return organizationService.list(organizationView);
+    }
+
 }

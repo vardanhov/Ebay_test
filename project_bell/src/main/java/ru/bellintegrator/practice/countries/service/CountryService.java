@@ -7,5 +7,11 @@ import java.util.Map;
 
 public interface CountryService {
 
+
+    /**
+     * List of Countries
+     *
+     *
+     */
     Map<String, List<CountryView>> countries();
 }
