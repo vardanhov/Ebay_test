@@ -31,11 +31,8 @@ public class Document {
     @JoinColumn(name = "doc_type_id")
     private DocumentType documentType;
 
-    /**
-     * Конструктор для hibernate
-     */
-    public Document() {
-    }
+
+
 
     public Document(DocumentType documentType, String number, Date date) {
         this.documentType = documentType;

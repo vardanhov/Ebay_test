@@ -44,7 +44,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void update(UserView userView) {
         User user = em.find(User.class, userView.getId());
-        DocumentType documentType = documentTypeDao.findByName(userView.getDocName());
+        DocumentType documentType = documentTypeDao.getDocumentTypeByName(userView.getDocName());
         user.setFirstName(userView.getFirstName());
         user.setSecondName(userView.getSecondName());
         user.setMiddleName(userView.getMiddleName());
@@ -66,9 +66,9 @@ public class UserDaoImpl implements UserDao {
         User user = new User();
         DocumentType documentType;
         if (userView.getDocName() != null) {
-            documentType = documentTypeDao.findByName(userView.getDocName());
+            documentType = documentTypeDao.getDocumentTypeByName(userView.getDocName());
         } else {
-            documentType = documentTypeDao.findByCode(userView.getDocCode());
+            documentType = documentTypeDao.getDocumentTypeByCode(userView.getDocCode());
         }
         Country country;
         if (userView.getCitizenshipName() != null) {
@@ -180,5 +180,15 @@ public class UserDaoImpl implements UserDao {
     public List<User> all() {
         TypedQuery<User> query = em.createQuery("SELECT u FROM User u", User.class);
         return query.getResultList();
+    }
+
+    public DocumentType findDocumentTypeId(String code) {
+        return documentTypeDao.getDocumentTypeByCode(code);
+    }
+
+
+
+    public Country findCountryId(String code) {
+        return countryDao.getCountryByCode(code);
     }
 }

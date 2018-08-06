@@ -1,9 +1,10 @@
 package ru.bellintegrator.practice.countries.dao;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import ru.bellintegrator.practice.countries.model.Country;
 
-public interface CountryDao extends JpaRepository<Country, Long> {
+import ru.bellintegrator.practice.countries.model.Country;
+import java.util.List;
+
+public interface CountryDao  {
 
 
     /**
@@ -20,4 +21,8 @@ public interface CountryDao extends JpaRepository<Country, Long> {
      */
     Country getCountryByName(String name);
 
+
+    List<Country> all();
+
+    void save(Country country);
 }

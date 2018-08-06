@@ -35,26 +35,29 @@ import java.util.stream.Collectors;
          */
 
         @Override
-        @Transactional
         public List<DocumentTypeView> allDocumentType() {
             List<DocumentType> all = docTypeDao.all();
 
+            Function<DocumentType, DocumentTypeView> mapDocumentType = p -> {
+                DocumentTypeView view = new DocumentTypeView();
+                view.code = p.getCode();
+                view.name = p.getName();
+                return view;
+            };
+
             return all.stream()
-                    .map(mapDocumentType())
+                    .map(mapDocumentType)
                     .collect(Collectors.toList());
         }
 
-        private Function<DocumentType, DocumentTypeView> mapDocumentType() {
-            return p -> {
-                DocumentTypeView view = new DocumentTypeView();
 
-                view.name = p.getName();
-                view.code = p.getCode();
+        @Override
 
-                log.debug(view.toString());
-
-                return view;
-            };
+        public void save(DocumentTypeView view) {
+            DocumentType doc = new DocumentType(view.code, view.name);
+            docTypeDao.save(doc);
         }
+
     }
+
 

@@ -4,6 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ru.bellintegrator.practice.docs.model.DocumentType;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 
@@ -20,31 +23,42 @@ public  class DocumentTypeDaoImpl implements DocumentTypeDao {
      *
      */
     @Override
-    public List<DocumentType> all() {
+    public List<DocumentType> all(){
         TypedQuery<DocumentType> query = em.createQuery("SELECT d FROM DocumentType d", DocumentType.class);
         return query.getResultList();
     }
 
-    /**
-     * Find DocumtType by name
-     *
-     *
-     */
     @Override
-    public DocumentType findByName(String name) {
-        return null;
+    public DocumentType getDocumentTypeByCode(String code) {
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaQuery<DocumentType> criteria = builder.createQuery(DocumentType.class);
+
+        Root<DocumentType> doc = criteria.from(DocumentType.class);
+        criteria.where(builder.equal(doc.get("code"), code));
+
+        TypedQuery<DocumentType> query = em.createQuery(criteria);
+
+            return query.getSingleResult();
+
+
     }
 
-
-    /**
-     * Find DocumtType by code
-     *
-     *
-     */
     @Override
-    public DocumentType findByCode(String code) {
-        return null;
+    public void save(DocumentType doc) {
+        em.persist(doc);
     }
 
+    public DocumentType getDocumentTypeByName(String name) {
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaQuery<DocumentType> criteria = builder.createQuery(DocumentType.class);
 
+        Root<DocumentType> doc = criteria.from(DocumentType.class);
+        criteria.where(builder.equal(doc.get("name"), name));
+
+        TypedQuery<DocumentType> query = em.createQuery(criteria);
+
+            return query.getSingleResult();
+
+
+    }
 }

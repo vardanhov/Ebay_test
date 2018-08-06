@@ -12,4 +12,8 @@ public interface DocumentTypeService {
      */
 
     List<DocumentTypeView> allDocumentType();
+
+
+
+    void save(DocumentTypeView view);
 }

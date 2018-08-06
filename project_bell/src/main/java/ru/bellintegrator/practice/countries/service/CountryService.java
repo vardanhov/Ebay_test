@@ -13,5 +13,9 @@ public interface CountryService {
      *
      *
      */
-    Map<String, List<CountryView>> countries();
+
+    List<CountryView> country();
+
+
+    void save(CountryView countries);
 }

@@ -20,7 +20,7 @@ public interface DocumentTypeDao  {
      *
      *
      */
-    DocumentType findByName(String name);
+    DocumentType getDocumentTypeByName(String name);
 
 
     /**
@@ -28,7 +28,9 @@ public interface DocumentTypeDao  {
      *
      *
      */
-    DocumentType findByCode(String code);
+    DocumentType getDocumentTypeByCode(String code);
 
+
+    void save(DocumentType documenttype);
 
 }
