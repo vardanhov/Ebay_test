@@ -13,8 +13,5 @@ public class CountryView {
     public CountryView() {
     }
 
-    public CountryView(String name, String code) {
-        this.name = name;
-        this.code = code;
-    }
+
 }

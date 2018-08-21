@@ -4,8 +4,6 @@ package ru.bellintegrator.practice.organization.dao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.bellintegrator.practice.organization.model.Organization;
-import ru.bellintegrator.practice.organization.view.OrganizationView;
-
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -32,20 +30,9 @@ public class OrganizationDaoImpl implements OrganizationDao {
      *
      */
     @Override
-    public void update(OrganizationView update) {
-        Organization organization = em.find(Organization.class, update.getId());
-        if (organization == null) {
-            throw new NullPointerException("Нет такая организация");
-        }
+    public void update(Organization update) {
 
-        organization.setName(update.getName());
-        organization.setFullName(update.getFullName());
-        organization.setInn(update.getInn());
-        organization.setKpp(update.getKpp());
-        organization.setAddress(update.getAddress());
-        organization.setPhone(update.getPhone());
-        organization.setActive(update.isActive());
-        em.merge(organization);
+        em.merge(update);
     }
 
 
@@ -56,21 +43,12 @@ public class OrganizationDaoImpl implements OrganizationDao {
      *
      */
     @Override
-    public OrganizationView getById(Long id) {
+    public Organization getById(Long id) {
         Organization organization = em.find(Organization.class, id);
         if (organization==null)
             throw new IllegalArgumentException("Организация не найдена");
 
-        OrganizationView view = new OrganizationView();
-        view.setId(organization.getId()) ;
-        view.setName(organization.getName());
-        view.setFullName(organization.getFullName());
-        view.setInn(organization.getInn());
-        view.setKpp(organization.getKpp());
-        view.setAddress(organization.getAddress());
-        view.setPhone(organization.getPhone());
-        view.setActive(organization.getActive());
-        return view;
+        return organization;
 
     }
 
@@ -81,32 +59,12 @@ public class OrganizationDaoImpl implements OrganizationDao {
      *
      */
     @Override
-    public void save(OrganizationView view) {
+    public void save(Organization org) {
 
-        Organization organization = new Organization();
-        organization.setName(view.getName());
-        organization.setFullName(view.getFullName());
-        organization.setInn(view.getInn());
-        organization.setKpp(view.getKpp());
-        organization.setAddress(view.getAddress());
-        organization.setPhone(view.getPhone());
-        organization.setActive(view.isActive());
-        em.persist(organization);
+
+        em.persist(org);
 
     }
-
-
-    /**
-     * Delete Organization
-     *
-     *
-     */
-    @Override
-    public void delete(Long id) {
-        Organization organization = em.find(Organization.class, id);
-
-            em.remove(organization);
-        }
 
 
     /**
@@ -147,7 +105,5 @@ public class OrganizationDaoImpl implements OrganizationDao {
         return organizations;
 
     }
-    public Organization loadById(Long id) {
-        return em.find(Organization.class, id);
-    }
+
 }

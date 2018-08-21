@@ -2,7 +2,6 @@ package ru.bellintegrator.practice.office.service;
 
 
 import ru.bellintegrator.practice.office.view.OfficeView;
-
 import java.util.List;
 
 
@@ -36,10 +35,6 @@ public interface OfficeService {
      */
     void save(OfficeView view);
 
-    /**
-     * Delete Office
-     *
-     *
-     */
-    void delete(Long id);
+
+
 }

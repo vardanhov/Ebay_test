@@ -1,5 +1,7 @@
 package ru.bellintegrator.practice.docs.service;
 
+
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +52,12 @@ public class DocumentTypeServiceImpl implements DocumentTypeService {
                 .collect(Collectors.toList());
     }
 
+
+    /**
+     * save DocumentTypes
+     *
+     *
+     */
 
     @Override
     @Transactional

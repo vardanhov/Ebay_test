@@ -1,7 +1,6 @@
 package ru.bellintegrator.practice.countries.service;
 
 import ru.bellintegrator.practice.countries.view.CountryView;
-
 import java.util.List;
 
 public interface CountryService {
@@ -16,6 +15,12 @@ public interface CountryService {
     List<CountryView> country();
 
 
+
+    /**
+     * save country
+     *
+     *
+     */
     void save(CountryView countries);
 
 

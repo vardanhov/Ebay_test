@@ -26,42 +26,44 @@ public  class DocumentTypeDaoImpl implements DocumentTypeDao {
      *
      */
     @Override
-    public List<DocumentType> all(){
-        TypedQuery<DocumentType> query = em.createQuery("SELECT d FROM DocumentType d", DocumentType.class);
-        return query.getResultList();
+    public List<DocumentType> all() {
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<DocumentType> criteria = criteriaBuilder.createQuery(DocumentType.class);
+        Root<DocumentType> docTypeRoot = criteria.from(DocumentType.class);
+        criteria.select(docTypeRoot);
+        List<DocumentType> docTypeList = em.createQuery(criteria).getResultList();
+        return docTypeList;
     }
+
+
+    /**
+     * Find DocumtType by name
+     *
+     *
+     */
 
     @Override
-    public DocumentType getDocumentTypeByCode(String code) {
+    public DocumentType getDocumentTypeByName(String name) {
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<DocumentType> criteria = builder.createQuery(DocumentType.class);
-
         Root<DocumentType> doc = criteria.from(DocumentType.class);
-        criteria.where(builder.equal(doc.get("code"), code));
-
+        criteria.where(builder.equal(doc.get("name"), name));
         TypedQuery<DocumentType> query = em.createQuery(criteria);
-
-            return query.getSingleResult();
+        return query.getSingleResult();
 
 
     }
 
+
+    /**
+     * save DocumentType
+     *
+     *
+     */
     @Override
     public void save(DocumentType doc) {
         em.persist(doc);
     }
 
-    public DocumentType getDocumentTypeByName(String name) {
-        CriteriaBuilder builder = em.getCriteriaBuilder();
-        CriteriaQuery<DocumentType> criteria = builder.createQuery(DocumentType.class);
 
-        Root<DocumentType> doc = criteria.from(DocumentType.class);
-        criteria.where(builder.equal(doc.get("name"), name));
-
-        TypedQuery<DocumentType> query = em.createQuery(criteria);
-
-            return query.getSingleResult();
-
-
-    }
 }

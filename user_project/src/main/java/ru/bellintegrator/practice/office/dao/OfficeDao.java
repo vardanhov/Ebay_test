@@ -2,8 +2,6 @@ package ru.bellintegrator.practice.office.dao;
 
 
 import ru.bellintegrator.practice.office.model.Office;
-import ru.bellintegrator.practice.office.view.OfficeView;
-
 import java.util.List;
 
 
@@ -22,7 +20,7 @@ public interface OfficeDao {
      *
      *
      */
-    OfficeView getById(Long id);
+    Office getById(Long id);
 
 
     /**
@@ -30,19 +28,15 @@ public interface OfficeDao {
      *
      *
      */
-    void save(OfficeView view);
+    void save(Office office);
 
     /**
      * Update Office
      *
      *
      */
-    void update(OfficeView update);
+    void update(Office update);
 
-    /**
-     * Delete Office
-     *
-     *
-     */
-    void delete(Long id);
+
+
 }

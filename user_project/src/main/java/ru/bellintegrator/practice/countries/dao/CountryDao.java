@@ -2,7 +2,6 @@ package ru.bellintegrator.practice.countries.dao;
 
 
 import ru.bellintegrator.practice.countries.model.Country;
-
 import java.util.List;
 
 public interface CountryDao  {
@@ -13,17 +12,22 @@ public interface CountryDao  {
      *
      *
      */
+
     Country getCountryByCode(String code);
 
+
     /**
-     * Get Country by name
+     * Get list country
      *
      *
      */
-    Country getCountryByName(String name);
-
-
     List<Country> all();
 
+
+    /**
+     * save country
+     *
+     *
+     */
     void save(Country country);
 }

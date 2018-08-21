@@ -2,7 +2,6 @@ package ru.bellintegrator.practice.countries.model;
 
 
 import ru.bellintegrator.practice.user.model.User;
-
 import javax.persistence.*;
 import java.util.Set;
 
@@ -61,11 +60,5 @@ public class Country {
         this.code = code;
     }
 
-    public Set<User> getUsers() {
-        return users;
-    }
 
-    public void setUsers(Set<User> users) {
-        this.users = users;
-    }
 }

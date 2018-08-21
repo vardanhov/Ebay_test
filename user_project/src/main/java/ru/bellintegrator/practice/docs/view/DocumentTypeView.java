@@ -13,8 +13,5 @@ public class DocumentTypeView {
     public DocumentTypeView() {
     }
 
-    public DocumentTypeView(String code, String name) {
-        this.name = name;
-        this.code = code;
-    }
+
 }

@@ -2,17 +2,15 @@ package ru.bellintegrator.practice.office.view;
 
 
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import io.swagger.annotations.ApiModelProperty;
-
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
+
 public class OfficeView {
     @ApiModelProperty(hidden = true)
 
@@ -40,7 +38,7 @@ public class OfficeView {
     @JsonProperty(value = "isActive")
     private boolean isActive;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

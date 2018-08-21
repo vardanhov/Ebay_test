@@ -1,7 +1,6 @@
 package ru.bellintegrator.practice.organization.service;
 
 import ru.bellintegrator.practice.organization.view.OrganizationView;
-
 import java.util.List;
 
 
@@ -38,10 +37,5 @@ public interface OrganizationService {
      */
     void save(OrganizationView view);
 
-    /**
-     * Delete Organization
-     *
-     *
-     */
-    void delete(Long id);
+
 }

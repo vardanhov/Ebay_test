@@ -1,5 +1,6 @@
 package ru.bellintegrator.practice.office.service;
 
+import org.hibernate.service.spi.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.practice.office.dao.OfficeDao;
 import ru.bellintegrator.practice.office.model.Office;
 import ru.bellintegrator.practice.office.view.OfficeView;
-
+import ru.bellintegrator.practice.organization.dao.OrganizationDao;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -19,12 +20,13 @@ public class OfficeServiceImpl implements OfficeService {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-    private final OfficeDao dao;
+    private final OfficeDao officeDao;
+    private final OrganizationDao orgdao;
 
     @Autowired
-    public OfficeServiceImpl(OfficeDao dao) {
-
-        this.dao = dao;
+    public OfficeServiceImpl(OfficeDao officeDao, OrganizationDao orgdao) {
+        this.officeDao = officeDao;
+        this.orgdao = orgdao;
     }
 
     /**
@@ -35,7 +37,15 @@ public class OfficeServiceImpl implements OfficeService {
     @Override
     @Transactional
     public void save(OfficeView view) {
-        dao.save(view);
+
+
+        Office office = new Office();
+        office.setName(view.getName());
+        office.setAddress(view.getAddress());
+        office.setPhone(view.getPhone());
+        office.setActive(view.getActive());
+        orgdao.getById(view.getOrgId()).addOffice(office);
+        officeDao.save(office);
     }
 
 
@@ -47,8 +57,15 @@ public class OfficeServiceImpl implements OfficeService {
     @Override
     @Transactional(readOnly = true)
     public OfficeView getById(Long id) {
+        Office office = officeDao.getById(id);
+        OfficeView view = new OfficeView();
+        view.setId(office.getId()) ;
+        view.setName(office.getName());
+        view.setAddress(office.getAddress());
+        view.setPhone(office.getPhone());
+        view.setActive(office.getActive());
+        return view;
 
-        return dao.getById(id);
     }
 
     /**
@@ -58,21 +75,27 @@ public class OfficeServiceImpl implements OfficeService {
      */
     @Override
     @Transactional
-    public void update(OfficeView update) {
-        dao.update(update);
+    public void update(OfficeView view) {
+
+        if (view.getId() == null) {
+            throw new ServiceException("Введите id");
+        }
+        if (view.getName() == null) {
+            throw new ServiceException("Введите называние");
+        }
+        if (view.getAddress() == null) {
+            throw new ServiceException("Введите адрес");
+        }
+        Office office = officeDao.getById(view.getId());
+        office.setName(view.getName());
+        office.setAddress(view.getAddress());
+        office.setPhone(view.getPhone());
+        office.setActive(view.getActive());
+        officeDao.update(office);
 
     }
 
-    /**
-     * Delete Office
-     *
-     *
-     */
-    @Override
-    @Transactional
-    public void delete(Long id) {
-        dao.delete(id);
-    }
+
 
 
     /**
@@ -85,16 +108,13 @@ public class OfficeServiceImpl implements OfficeService {
     public List<OfficeView> list(OfficeView office) {
 
 
-        List<Office> all = dao.filter(office.getId(), office.getName(), office.getPhone(),office.getActive());
-
+        List<Office> all = officeDao.filter(office.getOrgId(), office.getName(), office.getPhone(),office.getActive());
         Function<Office, OfficeView> mapOffice = p -> {
             OfficeView view = new OfficeView();
             view.setId(p.getId());
             view.setName(p.getName());
             view.setActive(p.getActive());
-
             log.info(view.toString());
-
             return view;
         };
 

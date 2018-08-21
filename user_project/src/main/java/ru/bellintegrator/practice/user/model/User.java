@@ -1,11 +1,9 @@
 package ru.bellintegrator.practice.user.model;
 
 
-import org.hibernate.annotations.Type;
 import ru.bellintegrator.practice.countries.model.Country;
-import ru.bellintegrator.practice.docs.model.Document;
+import ru.bellintegrator.practice.document.model.Document;
 import ru.bellintegrator.practice.office.model.Office;
-
 import javax.persistence.*;
 
 
@@ -37,15 +35,11 @@ public class User {
     @Column(name = "phone", length = 50, nullable = false)
     private String phone;
 
-    @Type(type = "true_false")
-    @Column(name = "isIdentified", nullable = false)
+
+    @Column(name = "is_identified", nullable = false)
     private Boolean isIdentified;
 
-    @Column(name = "is_active")
-    private Boolean isActive;
-
-    @OneToOne( fetch = FetchType.LAZY)
-
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
     private Document document;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -58,9 +52,7 @@ public class User {
 
 
 
-    public User() {
 
-    }
 
 
     public Long getId() {

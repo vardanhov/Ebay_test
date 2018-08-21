@@ -1,15 +1,16 @@
-package ru.bellintegrator.practice.docs.model;
+package ru.bellintegrator.practice.document.model;
 
+import ru.bellintegrator.practice.docs.model.DocumentType;
 import ru.bellintegrator.practice.user.model.User;
-
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @Table(name = "Document")
 public class Document {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Long id;
 
     @Version
@@ -23,23 +24,17 @@ public class Document {
     private String date;
 
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @MapsId
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
     private User user;
 
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "doc_type_id")
     private DocumentType documentType;
 
 
 
-
-    public Document(DocumentType documentType, String number, String date) {
-        this.documentType = documentType;
-        this.number = number;
-        this.date = date;
-    }
 
     public Long getId() {
         return id;
@@ -76,6 +71,8 @@ public class Document {
     public void setUser(User user) {
         this.user = user;
     }
+
+
 }
 
 

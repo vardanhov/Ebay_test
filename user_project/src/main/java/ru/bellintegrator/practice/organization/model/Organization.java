@@ -1,7 +1,6 @@
 package ru.bellintegrator.practice.organization.model;
 
 import ru.bellintegrator.practice.office.model.Office;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -134,9 +133,5 @@ public class Organization {
         office.setOrganization(this);
     }
 
-    public void removeOffice(Office office) {
-        getOffices().remove(office);
-        office.setOrganization(null);
-    }
 
 }

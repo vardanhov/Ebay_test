@@ -1,8 +1,6 @@
 package ru.bellintegrator.practice.user.dao;
 
 import ru.bellintegrator.practice.user.model.User;
-import ru.bellintegrator.practice.user.view.UserView;
-
 import java.util.List;
 
 
@@ -13,7 +11,7 @@ public interface UserDao {
      *
      *
      */
-    List<User> filter(UserView userView);
+    List<User> filter(Long officeId, String firstName, String secondName, String middleName, String position, String docCode, String citizenshipCode);
 
 
     /**
@@ -21,7 +19,7 @@ public interface UserDao {
      *
      *
      */
-    UserView getById(Long id);
+    User getById(Long id);
 
 
     /**
@@ -29,7 +27,7 @@ public interface UserDao {
      *
      *
      */
-    void save(UserView view);
+    void save(User user);
 
 
     /**
@@ -37,7 +35,7 @@ public interface UserDao {
      *
      *
      */
-    void update(UserView update);
+    void update(User update);
 
 
 
@@ -47,5 +45,7 @@ public interface UserDao {
      *
      */
     void delete(Long id);
+
+
 
 }

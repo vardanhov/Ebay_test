@@ -1,6 +1,9 @@
 package ru.bellintegrator.practice.docs.model;
 
+import ru.bellintegrator.practice.document.model.Document;
+
 import javax.persistence.*;
+import java.util.List;
 
 
 @Entity
@@ -23,16 +26,19 @@ public class DocumentType {
     @Column(name = "code")
     private String code;
 
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Document> documentList;
 
 
-    public DocumentType() {
-    }
+
     public DocumentType(String name, String code) {
 
         this.name = name;
         this.code = code;
 
     }
+
+
 
     public Long getId() {
         return id;
@@ -54,6 +60,8 @@ public class DocumentType {
     public void setCode(String code) {
         this.code = code;
     }
+
+
 
 
 }

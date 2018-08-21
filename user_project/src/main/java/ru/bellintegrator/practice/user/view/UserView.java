@@ -1,16 +1,11 @@
 package ru.bellintegrator.practice.user.view;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.swagger.annotations.ApiModelProperty;
-
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
-import java.util.Date;
 
 
 public class UserView {
@@ -80,7 +75,7 @@ public class UserView {
     private String citizenshipCode;
 
     @NotNull(message = "isIdentified is required")
-    @JsonProperty(value = "isIdentified")
+
     private boolean isIdentified;
 
     public UserView() {

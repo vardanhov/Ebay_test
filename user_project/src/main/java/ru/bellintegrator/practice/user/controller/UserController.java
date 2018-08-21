@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.bellintegrator.practice.user.service.UserService;
 import ru.bellintegrator.practice.user.view.UserView;
-
 import java.util.List;
-
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 
@@ -23,16 +21,15 @@ public class UserController {
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
-
     }
 
 
-    @ApiOperation(value = "getById", nickname = "getById", httpMethod = "GET")
+    @ApiOperation(value = "getUserById", nickname = "getUserById", httpMethod = "GET")
     @ApiResponses(value = {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @GetMapping("/{id}")
-    public UserView user(@RequestBody Long id) {
+    public UserView getUserById(@PathVariable Long id) {
         return userService.getById(id);
     }
 
@@ -71,9 +68,9 @@ public class UserController {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
 
-    @DeleteMapping("/delete")
-    public void delete(@RequestBody Long id) {
-        userService.delete(id);
+    @PostMapping("/delete")
+    public void delete(@RequestBody UserView view) {
+        userService.delete(view.getId());
     }
 
 
@@ -86,7 +83,7 @@ public class UserController {
 
     @PostMapping("/list")
     public List<UserView> list(@RequestBody UserView userView) {
-        return userService.list();
+        return userService.list(userView);
     }
 
 }

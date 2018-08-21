@@ -3,7 +3,6 @@ package ru.bellintegrator.practice.office.model;
 
 import ru.bellintegrator.practice.organization.model.Organization;
 import ru.bellintegrator.practice.user.model.User;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -106,8 +105,5 @@ public class Office {
         user.setOffice(this);
     }
 
-    public void removeUser(User user) {
-        getUser().remove(user);
-        user.setOffice(null);
-    }
+
 }

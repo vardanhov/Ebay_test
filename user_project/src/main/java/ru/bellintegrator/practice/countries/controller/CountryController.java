@@ -6,10 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.bellintegrator.practice.countries.service.CountryService;
 import ru.bellintegrator.practice.countries.view.CountryView;
-
 import java.util.List;
-
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
 @RequestMapping(value = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -22,7 +20,7 @@ public class CountryController {
     }
 
 
-    @RequestMapping(value = "/countries", method = {GET})
+    @RequestMapping(value = "/countries", method = {POST})
     public  List<CountryView> countries() {
         return countryService.country();
     }

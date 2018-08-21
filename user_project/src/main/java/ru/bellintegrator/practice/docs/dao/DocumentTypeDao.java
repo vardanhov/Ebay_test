@@ -16,6 +16,8 @@ public interface DocumentTypeDao  {
 
     List<DocumentType> all();
 
+
+
     /**
      * Find DocumtType by name
      *
@@ -23,15 +25,11 @@ public interface DocumentTypeDao  {
      */
     DocumentType getDocumentTypeByName(String name);
 
-
     /**
-     * Find DocumtType by code
+     * save DocumentType
      *
      *
      */
-    DocumentType getDocumentTypeByCode(String code);
-
-
     void save(DocumentType documenttype);
 
 }

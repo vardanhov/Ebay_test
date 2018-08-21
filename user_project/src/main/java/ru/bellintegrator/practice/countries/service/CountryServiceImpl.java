@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.practice.countries.dao.CountryDao;
 import ru.bellintegrator.practice.countries.model.Country;
 import ru.bellintegrator.practice.countries.view.CountryView;
-
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -49,6 +48,14 @@ public class CountryServiceImpl implements CountryService {
                 .map(mapContries)
                 .collect(Collectors.toList());
     }
+
+
+
+    /**
+     * save country
+     *
+     *
+     */
     @Override
     @Transactional
     public void save(CountryView view) {

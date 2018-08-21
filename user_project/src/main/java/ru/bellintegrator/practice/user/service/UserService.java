@@ -15,7 +15,7 @@ public interface UserService {
      *
      */
 
-    List<UserView> list();
+    List<UserView> list(UserView user);
 
 
     /**

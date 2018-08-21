@@ -3,9 +3,6 @@ package ru.bellintegrator.practice.office.dao;
 
 import org.springframework.stereotype.Repository;
 import ru.bellintegrator.practice.office.model.Office;
-import ru.bellintegrator.practice.office.view.OfficeView;
-import ru.bellintegrator.practice.organization.dao.OrganizationDaoImpl;
-
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -20,7 +17,7 @@ public class OfficeDaoImpl implements OfficeDao {
 
     private final EntityManager em;
 
-    private OrganizationDaoImpl orgDao;
+
 
     public OfficeDaoImpl(EntityManager em) {
         this.em = em;
@@ -31,20 +28,14 @@ public class OfficeDaoImpl implements OfficeDao {
      *
      *
      */
+
+
     @Override
-    public OfficeView getById(Long id) {
+    public Office getById(Long id) {
         Office office = em.find(Office.class, id);
         if (office==null)
             throw new IllegalArgumentException("Офис не найден");
-
-        OfficeView view = new OfficeView();
-        view.setId(office.getId()) ;
-        view.setOrgId(office.getOrganization().getId());
-        view.setName(office.getName());
-        view.setAddress(office.getAddress());
-        view.setPhone(office.getPhone());
-        view.setActive(office.getActive());
-        return view;
+        return office;
     }
 
 
@@ -54,14 +45,7 @@ public class OfficeDaoImpl implements OfficeDao {
      *
      */
     @Override
-    public void save(OfficeView view) {
-
-        Office office = new Office();
-        office.setName(view.getName());
-        office.setAddress(view.getAddress());
-        office.setPhone(view.getPhone());
-        office.setActive(view.getActive());
-        orgDao.loadById(view.getOrgId()).addOffice(office);
+    public void save(Office office) {
 
         em.persist(office);
 
@@ -73,30 +57,11 @@ public class OfficeDaoImpl implements OfficeDao {
      *
      */
     @Override
-    public void update(OfficeView update) {
-        Office office = em.find(Office.class, update.getId());
-        if (office == null) {
-            throw new NullPointerException("Нет такой офис");
-        }
+    public void update(Office update) {
 
-        office.setName(update.getName());
-        office.setAddress(update.getAddress());
-        office.setPhone(update.getPhone());
-        office.setActive(update.getActive());
-        em.merge(office);
+        em.merge(update);
     }
 
-
-    /**
-     * Delete Office
-     *
-     *
-     */
-    @Override
-    public void delete(Long id) {
-        Office office = em.find(Office.class, id);
-        em.remove(office);
-    }
 
     /**
      * Offoce list
@@ -105,11 +70,12 @@ public class OfficeDaoImpl implements OfficeDao {
      */
     @Override
     public List<Office> filter(Long orgId, String name,String phone, Boolean isActive) {
+
+
+
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<Office> criteria = builder.createQuery(Office.class);
-
         Root<Office> officeRoot = criteria.from(Office.class);
-
         Predicate predicate = builder.conjunction();
 
         if (orgId != null) {

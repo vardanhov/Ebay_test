@@ -23,7 +23,7 @@ public class DocumentTypeController {
         this.documentTypeService = documentTypeService;
     }
 
-    @RequestMapping(value = "/docs", method = {RequestMethod.GET})
+    @RequestMapping(value = "/docs", method = {RequestMethod.POST})
     public List<DocumentTypeView> getAllDocumentType() {
         return documentTypeService.allDocumentType();
     }

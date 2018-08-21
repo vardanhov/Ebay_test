@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.bellintegrator.practice.organization.service.OrganizationService;
 import ru.bellintegrator.practice.organization.view.OrganizationView;
-
 import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -32,7 +31,7 @@ public class OrganizationController {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @GetMapping("/{id}")
-    public OrganizationView organization(@RequestBody Long id) {
+    public OrganizationView organization(@PathVariable Long id) {
         return organizationService.getById(id);
     }
 
@@ -65,17 +64,6 @@ public class OrganizationController {
 
 
 
-    @ApiOperation(value = "deleteOrganization", nickname = "deleteOrganization", httpMethod = "POST")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Success", response = String.class),
-            @ApiResponse(code = 404, message = "Not Found"),
-            @ApiResponse(code = 500, message = "Failure")})
-
-    @PostMapping("/delete")
-    public void delete(@RequestBody Long id) {
-        organizationService.delete(id);
-    }
-
 
 
     @ApiOperation(value = "getList", nickname = "getList", httpMethod = "POST")
@@ -84,8 +72,8 @@ public class OrganizationController {
             @ApiResponse(code = 500, message = "Failure")})
 
     @PostMapping("/list")
-    public List<OrganizationView> list(@RequestBody OrganizationView organizationView) {
-        return organizationService.list(organizationView);
+    public List<OrganizationView> list(@RequestBody OrganizationView View) {
+        return organizationService.list(View);
     }
 
 }
