@@ -32,7 +32,7 @@ VALUES ( 0, 'Мегафон  офис № 2','Россия, Москава', '+7
 INSERT INTO Office ( version, name, address, phone, is_active, org_id)
 VALUES ( 0, 'МТС  офис № 1', 'Россия, Москава', '+7(495)4862578', TRUE, 1);
 INSERT INTO Office ( version, name, address, phone, is_active, org_id)
-VALUES ( 0, 'МТС  офис № 1', 'Россия, Москава', '+7(495)4862578', TRUE, 1);
+VALUES ( 0, 'МТС  офис № 2', 'Россия, Москава', '+7(495)4862578', TRUE, 1);
 
 
 

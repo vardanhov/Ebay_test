@@ -1,8 +1,6 @@
 
 
 
-
-
 CREATE TABLE IF NOT EXISTS User (
   id            INTEGER      NOT NULL PRIMARY KEY AUTO_INCREMENT,
   version       INTEGER      NOT NULL,

@@ -1,9 +1,9 @@
-Bell Integrator пример для учебного задания java
-======================
-Репозиторий
--
-git - https://github.com/azEsm/empty_project
 
-Использовать Swagger UI
--
-Пример обращения http://localhost:8888//swagger-ui.html
+Java CRUD application using Spring Boot, Hibernate, Maven and JUnit
+
+
+Technology 
+ - Spring Boot 1.4.1.RELEASE
+ - Hibernate
+ - Database - H2
+ - JDK 8
